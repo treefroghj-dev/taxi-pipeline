@@ -12,7 +12,9 @@ limit 100
 from taxi_pipeline.taxi_data.nyc_taxi_trips
 select
 	payment_type,
-  count(*) as payment_type_count
+  count(*) as payment_type_count,
+  sum(payment_type_count) over () as total_payment_type_count,
+  count(*)/sum(payment_type_count) over () as percentage
 group by payment_type
 ```
 
